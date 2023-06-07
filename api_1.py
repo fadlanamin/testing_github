@@ -26,7 +26,7 @@ swagger_template = dict(
 
         'version': LazyString(lambda:'1.0.0'),
 
-        'description': LazyString(lambda:'Dokumentasi Cleansing data for Gold Challenge by Aryo')
+        'description': LazyString(lambda:'Trial of Creating API for Binar Gold Challage by Fadlan')
 
         }, 
 
