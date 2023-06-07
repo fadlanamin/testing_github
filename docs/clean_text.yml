@@ -1,14 +1,20 @@
 tags:
 
-  - name: get API Information
-
-paths:
-
-  /:
+  - name: clean_text
 
 get:
 
-  description: get API Information
+  description: Cleaning Text using POST Method
+
+parameters:
+
+  - name: raw_text
+
+    in: formData
+
+    required: true
+
+    type: string
 
 responses:
 

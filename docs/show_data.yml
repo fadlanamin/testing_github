@@ -1,10 +1,10 @@
 tags:
 
-  - name: get API Information
+  - name: Show All Data from Database
 
 paths:
 
-  /:
+  /show_data:
 
 get:
 
