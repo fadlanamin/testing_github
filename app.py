@@ -43,12 +43,23 @@ def halaman_tiga():
 
 #-- ini fungsi api yang post---
 
-@apps.route("/addition" , methods=["POST"])
-def addition():
-    data = request.json
-    hasil = int(data["angka1"]) + int(data["angka2"])
-    return {"hasil": hasil}
+@apps.route("/penjumlahan", methods=["POST"])
 
+def penjumlahan():
+
+    """ 
+
+    To request using curl:
+
+    curl -X POST -H "Content-Type: application/json" -d '{"angka1": 1, "angka2": 2}' http://localhost:5000/penjumlahan
+
+    """
+
+    data = request.json
+
+    hasil = int(data["angka1"]) + int(data["angka2"])
+
+    return {"hasil": hasil}
 
 if __name__ == "__main__":
     apps.run() 
