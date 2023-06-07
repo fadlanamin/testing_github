@@ -5,6 +5,8 @@ from flask import Flask, jsonify, render_template
 
 apps = Flask(__name__)
 
+#----ini fungsi api yang get----
+
 @apps.route("/", methods=["GET"])
 def halaman_utama():
     return "Halo, Selamat Datang di Halaman utama"
@@ -39,5 +41,18 @@ def halaman_tiga():
 
 """
 
+#-- ini fungsi api yang post---
+
+@apps.route("/addition" , methods=["POST"])
+def addition():
+    data = request.json
+    hasil = int(data["angka1"]) + int(data["angka2"])
+    return {"hasil": hasil}
+
+
 if __name__ == "__main__":
-    apps.run()
+    apps.run() 
+    # apps.run(port=8000, debug=True)
+    #ini port atau linknya diubah jadi 8000
+    #ini debug=True , setiap kita save akan dijalanin lagi atau diupdate
+    #not recommended buat beginner
