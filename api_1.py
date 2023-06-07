@@ -76,7 +76,7 @@ def home():
 
         "version": "1.0.0",
 
-        "message": "Welcome to Flask API",
+        "message": "Welcome to Trial Flask API",
 
         "author": "Ahmad Fadlan Amin"
 
