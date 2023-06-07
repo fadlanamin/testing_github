@@ -4,7 +4,6 @@ from flask import Flask, jsonify, request
 from flasgger import Swagger, swag_from, LazyString, LazyJSONEncoder
 
 #Initiate Flask app
-
 app = Flask(__name__)
 
 # Assign LazyJSONEncoder to appp.json_encoder for Swagger UI
