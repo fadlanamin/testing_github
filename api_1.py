@@ -1,22 +1,24 @@
+#Creating API with Flask and Swagger UI using flasgger
+
 from flask import Flask, jsonify, request
 
-from flasgger import Swagger, swag_from, LazyJSONEncoder, LazyString
+from flasgger import Swagger, swag_from, LazyString, LazyJSONEncoder
 
 import re
 
  
 
-# Initialize Flask API
+# Initiate Flask App
 
 app = Flask(__name__)
 
-# assign LazyJSONEncoder to app.json_encoder for Swagger to work
+# Assign LazyJSONEncoder to app.json_encoder for Swagger UI
 
 app.json_encoder = LazyJSONEncoder
 
- 
-
 # Create Swagger Config & Swagger template
+
+# Create swagger Template & Config Object
 
 swagger_template = dict(
 
@@ -26,7 +28,7 @@ swagger_template = dict(
 
         'version': LazyString(lambda:'1.0.0'),
 
-        'description': LazyString(lambda:'Trial of Creating API for Binar Gold Challage by Fadlan')
+        'description': LazyString(lambda:'Trial to create API with Flask and Swagger UI using flasgger by Fadlan')
 
         }, 
 
@@ -36,25 +38,25 @@ swagger_template = dict(
 
 swagger_config = {
 
-        "headers":[],
+    "headers": [],
 
-        "specs":[
+    "specs": [
 
-            {
+        {
 
-            "endpoint":'docs',
+            "endpoint": "docs",
 
-            "route":'/docs.json'
+            "route": "/docs.json",
 
-            }
+        }
 
-        ],
+    ],
 
-        "static_url_path":"/flasgger_static",
+    "static_url_path": "/flasgger_static",
 
-        "swagger_ui":True,
+    "swagger_ui": True,
 
-        "specs_route":"/docs/"
+    "specs_route": "/docs/"
 
 }
 
@@ -70,41 +72,19 @@ swagger = Swagger(app, template=swagger_template, config=swagger_config)
 
 def home():
 
-    return jsonify(
+    welcome_msg = {
 
-        info="API Data Cleansing",
-        author="Ahmad Fadlan Amin",
+        "version": "1.0.0",
 
+        "message": "Welcome to Flask API",
 
-        status_code=200
+        "author": "Ahmad Fadlan Amin"
 
-        )
+    }
+
+    return jsonify(welcome_msg)
 
  
-
-@swag_from('docs/show_data.yml', methods=['GET'])
-
-@app.route('/show_data', methods=['GET'])
-
-def show_data():
-
-    data = ['data1', 'data2', 'data3']
-
-    data_dict = {}
-
-    for row in data:
-
-        data_dict[row] = row
-
-    return jsonify(
-
-        data=data_dict,
-
-        status_code=200
-
-        )
-
-    
 
 @swag_from('docs/clean_text.yml', methods=['POST'])
 
@@ -114,10 +94,23 @@ def clean_text():
 
     text = request.form['raw_text']
 
-    cleaned_text = re.sub(r'[^a-zA-Z0-9]', '***', text).lower() #ngeganti non alphabet jadi diapus
-#ini nanti diganti dari database dari kata kasar / kata alay
+    cleaned_text = re.sub(r'[^a-zA-Z0-9\s]', '', text).lower()
+
+    # Kata kasar / abusive words
+
+    cleaned_text = re.sub(r'anjing', '***', cleaned_text).lower() #Marking -- ini yang akan diganti sesuai kamus alay dst
+
+    cleaned_text = re.sub(r'bangsat', '***', cleaned_text).lower()
+
+    # Kamus alay
+
+    cleaned_text = re.sub(r'gw', 'saya', cleaned_text).lower()
+
+    cleaned_text = re.sub(r'loe', 'kamu', cleaned_text).lower()
 
     return jsonify(raw_text=text, cleaned_text=cleaned_text)
+
+ 
 
  
 
